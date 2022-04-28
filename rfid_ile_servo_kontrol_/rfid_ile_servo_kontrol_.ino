@@ -5,17 +5,17 @@
 int RST_PIN = 7;                          //RC522 modülü reset pinini tanımlıyoruz.
 int SS_PIN = 10;                          //RC522 modülü chip select pinini tanımlıyoruz.
 int servoPin = 8;                         //Servo motor pinini tanımlıyoruz.
-//int buzzerPin=6;                          //Buzzer pinini tanımlıyoruz.Buzzeriniz var ise baştaki // ları silin.
+//int buzzerPin=6;                        //Buzzer pinini tanımlıyoruz.Buzzeriniz var ise baştaki // ları silin.
 
 Servo motor;                              //Servo motor için değişken oluşturuyoruz.
 MFRC522 rfid(SS_PIN, RST_PIN);            //RC522 modülü ayarlarını yapıyoruz.
-byte ID[4] = {252,109,23,74};                //Yetkili kart ID'sini tanımlıyoruz. 
+byte ID[4] = {252,109,23,74};             //Yetkili kart ID'sini tanımlıyoruz. 
 void setup() { 
   motor.attach(servoPin);                 //Servo motor pinini motor değişkeni ile ilişkilendiriyor.
   Serial.begin(9600);                     //Seri haberleşmeyi başlatıyor.
   SPI.begin();                            //SPI iletişimini başlatıyor.
   rfid.PCD_Init();                        //RC522 modülünü başlatıyor.
- // pinMode(buzzerPin,OUTPUT);              //Buzzer modulünü başlatıyor.Buzzeriniz var ise baştaki // ları silin.
+ // pinMode(buzzerPin,OUTPUT);            //Buzzer modulünü başlatıyor.Buzzeriniz var ise baştaki // ları silin.
   motor.write(0);                         //Kap
 }
 
@@ -44,10 +44,10 @@ void loop() {
     else{                                 //Yetkisiz girişte içerideki komutlar çalıştırılır.
       Serial.println("Yetkisiz Kart");
       ekranaYazdir();
-      //digitalWrite(buzzerPin,HIGH);       //Ses çıkarması için buzzeri uyarır.
-      //delay(1000);           //Buzzeriniz var ise baştaki // ları silin.
-      //digitalWrite(buzzerPin,LOW);   //Buzzeriniz var ise baştaki // ları silin.
-      //delay(1000);   //Buzzeriniz var ise baştaki // ları silin.
+      //digitalWrite(buzzerPin,HIGH);     //Ses çıkarması için buzzeri uyarır.
+      //delay(1000);                      //Buzzeriniz var ise baştaki // ları silin.
+      //digitalWrite(buzzerPin,LOW);      //Buzzeriniz var ise baştaki // ları silin.
+      //delay(1000);                      //Buzzeriniz var ise baştaki // ları silin.
     }
   rfid.PICC_HaltA();
 }
