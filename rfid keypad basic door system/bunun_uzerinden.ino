@@ -1,12 +1,9 @@
-
-
-
 #include <Keypad.h>
 #include <MFRC522Extended.h>
 #include <MFRC522.h>
 #include <Servo.h>
 #include <SPI.h>
-#include <LcdI2cTUR.h>
+#include <LcdI2cTUR.h> // türkçe lcd kütüphanemiz
 LcdI2cTUR lcd(0x27);
 
 byte heart[8] = {
@@ -67,7 +64,7 @@ const String password_2 = "1337";   // change your password here
 const String password_3 = "B2016";    // change your password here
 String input_password;
 
-int angle = 0; // the current angle of servo motor
+int angle = 0; //servo değişkeni
 unsigned long lastTime;
 
 void setup() {
@@ -77,7 +74,7 @@ void setup() {
   // üzerine yaz işaretini kapatır.
   lcd.setCursor(4, 0);   // ışıkları kapatır
   lcd.setCursor(4, 1);
-  lcd.print("! BYAL !");
+  lcd.print("! NİCKİNİZ !");
   delay(3000);
   
   lcd.backlightsON();     // ışıkları açar
@@ -98,7 +95,7 @@ void setup() {
   lcd.displayClear();
   digitalWrite(LEDB, HIGH);
   Serial.begin(9600);
-  input_password.reserve(32); // maximum password size is 32, change if needed
+  input_password.reserve(32); // maximum ŞİFRE HANESİ
 
   servo.attach(SERVO_PIN);
   servo.write(0); // rotate servo motor to 0°
@@ -123,8 +120,8 @@ void loop() {
       digitalWrite(LEDA, LOW);
       
       if (key == '*') {
-        input_password = ""; // reset the input password
-      } else if (key == '#') {
+        input_password = ""; //RESET PASSWORD KEYİ ATAYIN.
+      } else if (key == '#') { // ENTER TUŞU
         if (input_password == password_1 || input_password == password_2 || input_password == password_3) {
           lcd.displayClear();
           Serial.println("The password is correct, rotating Servo Motor to 90°");
@@ -191,7 +188,7 @@ void loop() {
     rfid.PICC_HaltA();
   }
 
-  if (angle == 90 && (millis() - lastTime) > 5000) { // 5 seconds
+  if (angle == 90 && (millis() - lastTime) > 5000) { // 5 sANİYE
     angle = 0;
     servo.write(angle);
     Serial.println("Rotating Servo Motor to 0°");
